@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.lab5_diegoduarte"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.lab5_diegoduarte"
         minSdk = 31
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -69,4 +69,8 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.0.0")
     implementation("androidx.compose.material:material:1.0.0")
     implementation("androidx.compose.ui:ui-tooling:1.0.0")
+    implementation ("androidx.core:core-ktx:1.x.x")
+    implementation ("androidx.navigation:navigation-compose:2.x.x")
+    implementation ("androidx.navigation:navigation-compose:2.x.x")
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
 }
