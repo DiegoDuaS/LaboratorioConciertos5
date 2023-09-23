@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.lab5_diegoduarte.Conciertos
-import com.example.lab5_diegoduarte.R
 import com.example.lab5_diegoduarte.ui.theme.BlueOscuro
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
@@ -40,14 +39,6 @@ import com.example.lab5_diegoduarte.ui.theme.Tarjetitas
 fun Pantalla1(navController: NavHostController){
     val ConciertosFav = remember { mutableStateListOf<Conciertos>() }
     val ConciertosAll = remember { mutableStateListOf<Conciertos>() }
-    ConciertosFav.add(Conciertos("Young Miko", "9 de Septiembre, 2023", R.drawable.youngmiko))
-    ConciertosFav.add(Conciertos("Latin Mafia", "20 de Octube, 2023", R.drawable.latinmafia))
-    ConciertosFav.add(Conciertos("Twice", "2 de Noviembre, 2023", R.drawable.twice))
-    ConciertosFav.add(Conciertos("Feid", "4 de Diciembre, 2023", R.drawable.ferxxo))
-    ConciertosAll.add(Conciertos("Young Miko", "9 de Septiembre, 2023", R.drawable.youngmiko))
-    ConciertosAll.add(Conciertos("Latin Mafia", "20 de Octube, 2023", R.drawable.latinmafia))
-    ConciertosAll.add(Conciertos("Twice", "2 de Noviembre, 2023", R.drawable.twice))
-    ConciertosAll.add(Conciertos("Feid", "4 de Diciembre, 2023", R.drawable.ferxxo))
 
     Column(
         modifier = Modifier

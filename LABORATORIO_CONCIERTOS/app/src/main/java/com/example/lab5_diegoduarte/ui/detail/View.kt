@@ -22,11 +22,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.lab5_diegoduarte.R
+import com.example.lab5_diegoduarte.navegacion.model.ConciertoViewModel
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
 
 @Composable
-fun Pantalla3(){
+fun Pantalla3(conciertoViewModel: ConciertoViewModel){
+    val concierto = conciertoViewModel.concierto
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,7 +42,7 @@ fun Pantalla3(){
                 .background(color = Fondo1)
         ){
             Image(
-                painter = painterResource(id = R.drawable.taylorswith),
+                painter = painterResource(id = concierto.image),
                 contentDescription = null,
                 modifier = Modifier
                     .size(400.dp),
@@ -57,14 +60,14 @@ fun Pantalla3(){
                     .background(color = Fondo)
             ){
                 Text(
-                    text = "Taylor Swift: The Eras Tour - Night 2",
+                    text = concierto.name,
                     style = MaterialTheme.typography.h5,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
                     textAlign = TextAlign.Start
                 )
                 Text(
-                    text = "Foro Sol",
+                    text = concierto.venue,
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -86,7 +89,7 @@ fun Pantalla3(){
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = "25 de Agosto, 2023",
+                text = concierto.date,
                 style =  MaterialTheme.typography.subtitle1,
                 modifier = Modifier
                     .padding(vertical = 2.dp)
@@ -126,7 +129,7 @@ fun Pantalla3(){
                         .padding(horizontal = 4.dp)
                 )
                 Text(
-                    text = "La gira de tour de Taylor número 6. La primera vez que sale en gira desde la pandemia. Es un concierto que te llevará por todas las eras de Taylor Swift desde sus origenes con el album 'Taylor Swift' hasta su era actual con '1989: Taylor's Version'. ",
+                    text = concierto.des,
                     style =  MaterialTheme.typography.subtitle2,
                     modifier = Modifier
                         .padding(vertical = 2.dp)

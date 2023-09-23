@@ -1,6 +1,7 @@
 package com.example.lab5_diegoduarte.ui.favorites
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,31 +13,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.lab5_diegoduarte.Venues
+import androidx.navigation.NavHostController
+import com.example.lab5_diegoduarte.Conciertos
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
 
 @Composable
-fun Pantalla2(){
-    val Lista = remember { mutableStateListOf<Venues>() }
-    Lista.add(Venues("Bad Bunny", "Explanada Cayala"))
-    Lista.add(Venues("Martin Garrix", "Forum Majadas"))
-    Lista.add(Venues("Latin Mafia", "Parque de la Industria"))
-    Lista.add(Venues("Taylor Swift", "Foro Sol"))
+fun Pantalla2(conciertosList: List<Conciertos>, navController: NavHostController){
 
     Column(
         modifier = Modifier
@@ -45,24 +38,30 @@ fun Pantalla2(){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         LazyColumn {
-            items(Lista) { venue ->
-                Lugares(lugar = venue)
+            items(conciertosList) { concierto ->
+                Lugares(concierto = concierto, navController)
             }
         }
     }
 }
 
 @Composable
-fun Lugares(lugar: Venues) {
-    val firstLetter = lugar.name.take(1).uppercase()
+fun Lugares(concierto: Conciertos, navController: NavHostController) {
+    val firstLetter = concierto.name.take(1).uppercase()
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = Fondo),
+            .background(color = Fondo)
+            .clickable {
+                navController.navigate("Detalles") {
+                    popUpTo("Conciertos") { inclusive = true }
+                }
+
+            },
         colors = CardDefaults.cardColors(
             containerColor = Fondo1
-        )
+        ),
     ) {
         Row(
             modifier = Modifier
@@ -90,32 +89,26 @@ fun Lugares(lugar: Venues) {
             Column(
                 modifier = Modifier
                     .padding(8.dp),
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.End
             ){
                 Text(
-                    text = lugar.name,
+                    text = concierto.name,
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
-                    textAlign = TextAlign.Start,
+                    textAlign = TextAlign.End,
                     color = Color.White
                 )
                 Text(
-                    text = lugar.place,
+                    text = concierto.venue,
                     style = MaterialTheme.typography.body2,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
                     color = Color.White,
-                    textAlign = TextAlign.Start,
+                    textAlign = TextAlign.End,
                 )
             }
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(containerColor = Fondo1)
 
-            ) {
-                Text("...")
-            }
         }
     }
 }
