@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.lab5_diegoduarte.Conciertos
+import com.example.lab5_diegoduarte.navegacion.model.Screen
 import com.example.lab5_diegoduarte.ui.theme.BlueOscuro
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
@@ -99,12 +100,21 @@ fun Pantalla1(navController: NavHostController){
         ){
             Button(
                 onClick = {
-                    navController.navigate("Profile")
+                    navController.navigate(Screen.profile.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Fondo1)
 
             ) {
                 Text("Usuario")
+            }
+            Button(
+                onClick = {
+                    navController.navigate(Screen.favorites.route)
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Fondo1)
+
+            ) {
+                Text("Favoritos")
             }
         }
     }

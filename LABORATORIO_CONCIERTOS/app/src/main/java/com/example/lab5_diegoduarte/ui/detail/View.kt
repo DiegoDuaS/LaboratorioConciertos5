@@ -21,14 +21,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.lab5_diegoduarte.Conciertos
 import com.example.lab5_diegoduarte.R
-import com.example.lab5_diegoduarte.navegacion.model.ConciertoViewModel
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
 
 @Composable
-fun Pantalla3(conciertoViewModel: ConciertoViewModel){
-    val concierto = conciertoViewModel.concierto
+fun Pantalla3(navController: NavHostController, concierto: Conciertos?){
 
     Column(
         modifier = Modifier
@@ -41,13 +41,15 @@ fun Pantalla3(conciertoViewModel: ConciertoViewModel){
                 .size(400.dp)
                 .background(color = Fondo1)
         ){
-            Image(
-                painter = painterResource(id = concierto.image),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(400.dp),
-                contentScale = ContentScale.Crop
-            )
+            if (concierto != null) {
+                Image(
+                    painter = painterResource(id = concierto.image),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(400.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
         }
         Row(
             modifier = Modifier
@@ -59,20 +61,24 @@ fun Pantalla3(conciertoViewModel: ConciertoViewModel){
                     .fillMaxWidth()
                     .background(color = Fondo)
             ){
-                Text(
-                    text = concierto.name,
-                    style = MaterialTheme.typography.h5,
-                    modifier = Modifier
-                        .padding(vertical = 2.dp),
-                    textAlign = TextAlign.Start
-                )
-                Text(
-                    text = concierto.venue,
-                    style = MaterialTheme.typography.subtitle1,
-                    modifier = Modifier
-                        .padding(vertical = 2.dp),
-                    textAlign = TextAlign.Start
-                )
+                if (concierto != null) {
+                    Text(
+                        text = concierto.name,
+                        style = MaterialTheme.typography.h5,
+                        modifier = Modifier
+                            .padding(vertical = 2.dp),
+                        textAlign = TextAlign.Start
+                    )
+                }
+                if (concierto != null) {
+                    Text(
+                        text = concierto.venue,
+                        style = MaterialTheme.typography.subtitle1,
+                        modifier = Modifier
+                            .padding(vertical = 2.dp),
+                        textAlign = TextAlign.Start
+                    )
+                }
             }
         }
         Row(
@@ -88,13 +94,15 @@ fun Pantalla3(conciertoViewModel: ConciertoViewModel){
                     .size(25.dp),
                 contentScale = ContentScale.Crop
             )
-            Text(
-                text = concierto.date,
-                style =  MaterialTheme.typography.subtitle1,
-                modifier = Modifier
-                    .padding(vertical = 2.dp)
-                    .padding(horizontal = 4.dp)
-            )
+            if (concierto != null) {
+                Text(
+                    text = concierto.date,
+                    style =  MaterialTheme.typography.subtitle1,
+                    modifier = Modifier
+                        .padding(vertical = 2.dp)
+                        .padding(horizontal = 4.dp)
+                )
+            }
             Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(id = R.drawable.clockicon),
@@ -128,14 +136,16 @@ fun Pantalla3(conciertoViewModel: ConciertoViewModel){
                         .padding(vertical = 2.dp)
                         .padding(horizontal = 4.dp)
                 )
-                Text(
-                    text = concierto.des,
-                    style =  MaterialTheme.typography.subtitle2,
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .padding(horizontal = 4.dp),
-                    textAlign = TextAlign.Justify
-                )
+                if (concierto != null) {
+                    Text(
+                        text = concierto.des,
+                        style =  MaterialTheme.typography.subtitle2,
+                        modifier = Modifier
+                            .padding(vertical = 2.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Justify
+                    )
+                }
             }
         }
         Row(

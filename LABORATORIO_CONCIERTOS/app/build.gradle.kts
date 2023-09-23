@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -73,4 +74,5 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.x.x")
     implementation ("androidx.navigation:navigation-compose:2.x.x")
     implementation ("androidx.navigation:navigation-compose:2.7.0")
+    implementation ("androidx.navigation:navigation-compose:2.4.0")
 }
