@@ -9,6 +9,7 @@ import com.example.lab5_diegoduarte.ui.detail.Pantalla3
 import com.example.lab5_diegoduarte.ui.favorites.Pantalla2
 import com.example.lab5_diegoduarte.ui.profile.Pantalla4
 
+
 const val concierto = "concierto"
 
 sealed class Screen(val route:String){
@@ -22,11 +23,8 @@ sealed class Screen(val route:String){
     object profile: Screen(route= "perfil_screen")
 }
 
-data class ConciertoViewModel(
-    val concierto: Conciertos
-)
 @Composable
-fun YourApp() {
+fun YourApp(sharedViewModel: SharedViewModel) {
     val navController = rememberNavController()
 
     NavHost(
@@ -36,20 +34,22 @@ fun YourApp() {
         composable(
             route = Screen.conciertos.route
         ) {
-            Pantalla1(navController)
+            Pantalla1(navController, sharedViewModel)
         }
         composable(
             route = Screen.detalles.route
         ){
             val actualconcert =
                 navController.previousBackStackEntry?.savedStateHandle?.get<Conciertos>("concierto")
-            Pantalla3(navController = navController, actualconcert)
+            if (actualconcert != null) {
+                Pantalla3(navController = navController, actualconcert, sharedViewModel)
+            }
         
         }
         composable(
             route = Screen.favorites.route
         ){
-            Pantalla2(navController)
+            Pantalla2(navController,sharedViewModel)
         }
         composable(
             route = Screen.profile.route

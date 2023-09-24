@@ -2,6 +2,7 @@ package com.example.lab5_diegoduarte.ui.concerts
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,8 +19,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,18 +27,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.lab5_diegoduarte.Conciertos
 import com.example.lab5_diegoduarte.navegacion.model.Screen
+import com.example.lab5_diegoduarte.navegacion.model.SharedViewModel
 import com.example.lab5_diegoduarte.ui.theme.BlueOscuro
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
 import com.example.lab5_diegoduarte.ui.theme.Tarjetitas
 
 @Composable
-fun Pantalla1(navController: NavHostController){
-    val ConciertosFav = remember { mutableStateListOf<Conciertos>() }
-    val ConciertosAll = remember { mutableStateListOf<Conciertos>() }
+fun Pantalla1(navController: NavHostController, sharedViewModel: SharedViewModel = viewModel()){
+
+    val ConciertosAll = sharedViewModel.conciertosList
 
     Column(
         modifier = Modifier
@@ -72,10 +73,22 @@ fun Pantalla1(navController: NavHostController){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ){
-            ConciertosFav.forEach { concierto ->
-                CardConcierto(concierto = concierto)
+            if (sharedViewModel.concirtosFav.isEmpty()){
+                Text(
+                    text = "No tienes conciertos favoritos.",
+                    style = androidx.compose.material.MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.padding(bottom = 8.dp, top = 8.dp),
+                    color = BlueOscuro,
+                    textAlign = TextAlign.Center,
+                )
+            }
+            else {
+                sharedViewModel.concirtosFav.forEach { concierto ->
+                    CardConcierto(concierto = concierto,navController)
+                }
             }
         }
         Text(
@@ -90,7 +103,7 @@ fun Pantalla1(navController: NavHostController){
                 .horizontalScroll(rememberScrollState())
         ){
             ConciertosAll.forEach { concierto ->
-                CardConcierto(concierto = concierto)
+                CardConcierto(concierto = concierto,navController)
             }
         }
         Row(
@@ -121,12 +134,19 @@ fun Pantalla1(navController: NavHostController){
 }
 
 @Composable
-fun CardConcierto(concierto: Conciertos){
+fun CardConcierto(concierto: Conciertos, navController:NavHostController){
     Card(
         modifier = Modifier
             .padding(8.dp)
             .background(color = Fondo)
             .width(150.dp)
+            .clickable {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "concierto",
+                    value  = concierto
+                )
+                navController.navigate(Screen.detalles.route)
+            }
     ){
         Column(
             modifier = Modifier

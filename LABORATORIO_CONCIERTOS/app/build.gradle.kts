@@ -75,4 +75,5 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.x.x")
     implementation ("androidx.navigation:navigation-compose:2.7.0")
     implementation ("androidx.navigation:navigation-compose:2.4.0")
+    implementation ("com.google.android.material:material:1.5.0")
 }

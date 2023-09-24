@@ -21,14 +21,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.lab5_diegoduarte.Conciertos
 import com.example.lab5_diegoduarte.R
+import com.example.lab5_diegoduarte.navegacion.model.Screen
+import com.example.lab5_diegoduarte.navegacion.model.SharedViewModel
 import com.example.lab5_diegoduarte.ui.theme.Fondo
 import com.example.lab5_diegoduarte.ui.theme.Fondo1
 
 @Composable
-fun Pantalla3(navController: NavHostController, concierto: Conciertos?){
+fun Pantalla3(navController: NavHostController, concierto: Conciertos,sharedViewModel: SharedViewModel = viewModel()){
 
     Column(
         modifier = Modifier
@@ -156,7 +159,9 @@ fun Pantalla3(navController: NavHostController, concierto: Conciertos?){
             horizontalArrangement = Arrangement.SpaceEvenly
         ){
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    sharedViewModel.concirtosFav.add(concierto)
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Fondo1)
 
             ) {
@@ -169,6 +174,15 @@ fun Pantalla3(navController: NavHostController, concierto: Conciertos?){
             ) {
                 Text("Comprar")
             }
+            Button(
+                onClick = { navController.navigate(Screen.conciertos.route) },
+                colors = ButtonDefaults.buttonColors(containerColor = Fondo1)
+
+            ) {
+                Text("Pantalla Principal")
+            }
         }
     }
 }
+
+
